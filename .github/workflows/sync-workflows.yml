@@ -1,0 +1,19 @@
+name: Auto-Sync Security Workflows
+
+on:
+  schedule:
+    - cron: '0 2 * * 0'  # Weekly Sunday 2am
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Sync workflows
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: echo "Syncing workflows to all repos"
